@@ -1,0 +1,26 @@
+version: "3"
+services:
+  ws:
+    image: ex-jvcs-sp-2324:1
+    build: .
+    environment:
+      - NODE_ENV=production
+      - DB_URL=mongodb://mongo
+    ports:
+      - "7070:9090"
+    networks:
+      - gamix-jvcs
+    depends_on:
+      - database
+  database:
+    image: mongo:5
+    ports:
+      - "7071:27017"
+    volumes:
+      - db:/data/db
+    networks:
+      - gamix-jvcs
+volumes:
+  db:
+networks:
+  gamix-jvcs:
